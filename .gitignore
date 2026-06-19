@@ -1,0 +1,17 @@
+[Bb]in/
+[Oo]bj/
+
+.vs/
+.idea/
+
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+*.tmp
+*.temp
+
+*.db
+*.sqlite
+*.sqlite3
