@@ -16,7 +16,7 @@ namespace Finance_Tracker
             //Application.SetCompatibleTextRenderingDefault(false);
             ApplicationConfiguration.Initialize();
 
-            Application.SetDefaultFont(new Font("Shabnam", 10f, FontStyle.Regular));
+            Application.SetDefaultFont(new Font("Shabnam", 9f, FontStyle.Regular));
             var db = new DatabaseHelper();
             db.InitialiseDatabase();
             Application.Run(new LoginForm(db));

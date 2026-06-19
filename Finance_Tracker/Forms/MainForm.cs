@@ -239,16 +239,6 @@ namespace Finance_Tracker.Forms
 
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            if (_transactions == null || _transactions.Count == 0)
-            {
-                MessageBox.Show("هیچ تراکنشی برای نمایش وجود ندارد.");
-                return;
-            }
-            new ChartsForm(_transactions).ShowDialog();
-        }
-
         private void MainForm_Load_1(object sender, EventArgs e)
         {
             this.Font = new Font("Shabnam", 10f);
@@ -270,7 +260,13 @@ namespace Finance_Tracker.Forms
 
         private void bthCharts_Click(object sender, EventArgs e)
         {
-
+            if (_transactions == null || _transactions.Count == 0)
+            {
+                MessageBox.Show(".هیچ تراکنشی برای نمایش وجود ندارد");
+                return;
+            }
+            new ChartsForm(_transactions).ShowDialog();
         }
+
     }
 }

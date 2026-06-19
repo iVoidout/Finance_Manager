@@ -111,6 +111,7 @@
             dataGridView1.Size = new Size(750, 331);
             dataGridView1.TabIndex = 0;
             dataGridView1.TabStop = false;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
             // lblBalance
             // 
@@ -195,7 +196,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(195, 10);
+            label2.Location = new Point(190, 10);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(51, 21);
@@ -206,7 +207,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(168, 10);
+            label3.Location = new Point(165, 10);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(77, 21);
@@ -234,14 +235,14 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(0, 12, 102);
+            panel1.BackColor = Color.White;
             panel1.Controls.Add(lblTodayDate);
             panel1.Controls.Add(lblUsername);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(btnLogout);
             panel1.Dock = DockStyle.Top;
-            panel1.ForeColor = Color.White;
+            panel1.ForeColor = Color.Black;
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
@@ -262,13 +263,13 @@
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(607, 12);
+            lblUsername.Location = new Point(623, 12);
             lblUsername.Margin = new Padding(4, 0, 4, 0);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(73, 15);
             lblUsername.TabIndex = 5;
             lblUsername.Text = "lblUsername";
-            lblUsername.TextAlign = ContentAlignment.MiddleRight;
+            lblUsername.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -283,16 +284,16 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(680, 12);
+            label4.Location = new Point(694, 12);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(58, 15);
+            label4.Size = new Size(33, 15);
             label4.TabIndex = 3;
-            label4.Text = "نام کاربری:";
+            label4.Text = "کاربر:";
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(0, 12, 102);
+            panel2.BackColor = Color.White;
             panel2.Controls.Add(bthCharts);
             panel2.Controls.Add(btnEdit);
             panel2.Controls.Add(btnDelete);
@@ -309,7 +310,7 @@
             bthCharts.BackColor = Color.Cyan;
             bthCharts.FlatAppearance.BorderSize = 0;
             bthCharts.FlatStyle = FlatStyle.Flat;
-            bthCharts.Location = new Point(338, 10);
+            bthCharts.Location = new Point(13, 10);
             bthCharts.Margin = new Padding(4, 3, 4, 3);
             bthCharts.Name = "bthCharts";
             bthCharts.Size = new Size(75, 30);
@@ -356,7 +357,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Shabnam", 9F);
-            label7.Location = new Point(131, 12);
+            label7.Location = new Point(126, 12);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(14, 16);
@@ -367,7 +368,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Shabnam", 9F);
-            label6.Location = new Point(266, 12);
+            label6.Location = new Point(261, 12);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(15, 16);
@@ -380,6 +381,7 @@
             btnClearFilter.Cursor = Cursors.Hand;
             btnClearFilter.FlatAppearance.BorderSize = 0;
             btnClearFilter.FlatStyle = FlatStyle.Flat;
+            btnClearFilter.Font = new Font("Shabnam", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnClearFilter.ForeColor = Color.Black;
             btnClearFilter.Location = new Point(657, 9);
             btnClearFilter.Margin = new Padding(4, 3, 4, 3);
@@ -396,6 +398,7 @@
             btnFilter.Cursor = Cursors.Hand;
             btnFilter.FlatAppearance.BorderSize = 0;
             btnFilter.FlatStyle = FlatStyle.Flat;
+            btnFilter.Font = new Font("Shabnam", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnFilter.ForeColor = Color.Black;
             btnFilter.Location = new Point(576, 9);
             btnFilter.Margin = new Padding(4, 3, 4, 3);
@@ -432,7 +435,7 @@
             dtpFrom.Cursor = Cursors.Hand;
             dtpFrom.Font = new Font("Segoe UI", 8.25F);
             dtpFrom.Format = DateTimePickerFormat.Short;
-            dtpFrom.Location = new Point(154, 9);
+            dtpFrom.Location = new Point(149, 9);
             dtpFrom.Margin = new Padding(4, 3, 4, 3);
             dtpFrom.Name = "dtpFrom";
             dtpFrom.Size = new Size(106, 22);
@@ -444,7 +447,7 @@
             dtpTo.Cursor = Cursors.Hand;
             dtpTo.Font = new Font("Segoe UI", 8.25F);
             dtpTo.Format = DateTimePickerFormat.Short;
-            dtpTo.Location = new Point(18, 9);
+            dtpTo.Location = new Point(13, 9);
             dtpTo.Margin = new Padding(4, 3, 4, 3);
             dtpTo.Name = "dtpTo";
             dtpTo.Size = new Size(106, 22);
@@ -473,7 +476,7 @@
             pnlIncome.Location = new Point(504, 414);
             pnlIncome.Margin = new Padding(4, 3, 4, 3);
             pnlIncome.Name = "pnlIncome";
-            pnlIncome.Size = new Size(245, 42);
+            pnlIncome.Size = new Size(240, 42);
             pnlIncome.TabIndex = 8;
             // 
             // pnlBalance
@@ -482,10 +485,10 @@
             pnlBalance.Controls.Add(label3);
             pnlBalance.Controls.Add(lblBalance);
             pnlBalance.Font = new Font("Shabnam", 11.25F);
-            pnlBalance.Location = new Point(0, 414);
+            pnlBalance.Location = new Point(5, 414);
             pnlBalance.Margin = new Padding(4, 3, 4, 3);
             pnlBalance.Name = "pnlBalance";
-            pnlBalance.Size = new Size(245, 42);
+            pnlBalance.Size = new Size(240, 42);
             pnlBalance.TabIndex = 9;
             // 
             // MainForm

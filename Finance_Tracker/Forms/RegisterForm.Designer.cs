@@ -39,11 +39,11 @@
             // 
             // btnRegister
             // 
-            btnRegister.BackColor = Color.FromArgb(2, 181, 166);
+            btnRegister.BackColor = Color.Cyan;
             btnRegister.FlatAppearance.BorderSize = 0;
             btnRegister.FlatStyle = FlatStyle.Flat;
             btnRegister.Font = new Font("Shabnam", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnRegister.ForeColor = Color.White;
+            btnRegister.ForeColor = Color.Black;
             btnRegister.Location = new Point(48, 188);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(169, 28);
