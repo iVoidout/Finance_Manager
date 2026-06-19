@@ -35,6 +35,10 @@
             label1 = new Label();
             label3 = new Label();
             txtConfirm = new TextBox();
+            cmbRole = new ComboBox();
+            label4 = new Label();
+            cmbDepartment = new ComboBox();
+            label5 = new Label();
             SuspendLayout();
             // 
             // btnRegister
@@ -44,9 +48,9 @@
             btnRegister.FlatStyle = FlatStyle.Flat;
             btnRegister.Font = new Font("Shabnam", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnRegister.ForeColor = Color.Black;
-            btnRegister.Location = new Point(48, 188);
+            btnRegister.Location = new Point(48, 231);
             btnRegister.Name = "btnRegister";
-            btnRegister.Size = new Size(169, 28);
+            btnRegister.Size = new Size(345, 28);
             btnRegister.TabIndex = 4;
             btnRegister.Text = "ثبت نام";
             btnRegister.UseVisualStyleBackColor = false;
@@ -62,7 +66,7 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(48, 57);
+            txtUsername.Location = new Point(48, 48);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(169, 23);
             txtUsername.TabIndex = 1;
@@ -82,7 +86,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(48, 36);
+            label1.Location = new Point(48, 27);
             label1.Name = "label1";
             label1.Size = new Size(60, 18);
             label1.TabIndex = 4;
@@ -93,7 +97,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(48, 138);
+            label3.Location = new Point(224, 87);
             label3.Name = "label3";
             label3.Size = new Size(77, 18);
             label3.TabIndex = 3;
@@ -102,20 +106,62 @@
             // 
             // txtConfirm
             // 
-            txtConfirm.Location = new Point(48, 159);
+            txtConfirm.Location = new Point(224, 108);
             txtConfirm.Name = "txtConfirm";
             txtConfirm.PasswordChar = '*';
             txtConfirm.Size = new Size(169, 23);
             txtConfirm.TabIndex = 3;
             // 
+            // cmbRole
+            // 
+            cmbRole.FormattingEnabled = true;
+            cmbRole.Location = new Point(48, 174);
+            cmbRole.Name = "cmbRole";
+            cmbRole.Size = new Size(169, 23);
+            cmbRole.TabIndex = 5;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(48, 149);
+            label4.Name = "label4";
+            label4.Size = new Size(54, 18);
+            label4.TabIndex = 3;
+            label4.Text = "دسترسی";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // cmbDepartment
+            // 
+            cmbDepartment.FormattingEnabled = true;
+            cmbDepartment.Location = new Point(224, 174);
+            cmbDepartment.Name = "cmbDepartment";
+            cmbDepartment.Size = new Size(169, 23);
+            cmbDepartment.TabIndex = 6;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(224, 149);
+            label5.Name = "label5";
+            label5.Size = new Size(50, 18);
+            label5.TabIndex = 3;
+            label5.Text = "دپارتمان";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // RegisterForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(264, 261);
+            ClientSize = new Size(435, 310);
+            Controls.Add(cmbDepartment);
+            Controls.Add(cmbRole);
             Controls.Add(btnRegister);
             Controls.Add(txtConfirm);
             Controls.Add(txtPassword);
+            Controls.Add(label5);
+            Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(txtUsername);
             Controls.Add(label2);
@@ -142,5 +188,9 @@
         private Label label1;
         private Label label3;
         private TextBox txtConfirm;
+        private ComboBox cmbRole;
+        private Label label4;
+        private ComboBox cmbDepartment;
+        private Label label5;
     }
 }

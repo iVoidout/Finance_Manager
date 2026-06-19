@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             dataGridView1 = new DataGridView();
             lblBalance = new Label();
             lblIncome = new Label();
@@ -48,6 +48,8 @@
             label5 = new Label();
             label4 = new Label();
             panel2 = new Panel();
+            primaryButton1 = new Finance_Tracker.Controls.PrimaryButton();
+            btnSettings = new Finance_Tracker.Controls.PrimaryButton();
             bthCharts = new Button();
             btnEdit = new Button();
             filterPanel = new Panel();
@@ -62,6 +64,7 @@
             pnlExpense = new Panel();
             pnlIncome = new Panel();
             pnlBalance = new Panel();
+            btnExport = new Finance_Tracker.Controls.PrimaryButton();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -77,26 +80,26 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.WhiteSmoke;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = Color.WhiteSmoke;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             dataGridView1.BackgroundColor = SystemColors.Window;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.White;
-            dataGridViewCellStyle2.Font = new Font("Shabnam", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.Font = new Font("Shabnam", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = Color.White;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(216, 239, 227);
-            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(26, 26, 46);
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Window;
+            dataGridViewCellStyle7.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(216, 239, 227);
+            dataGridViewCellStyle7.SelectionForeColor = Color.FromArgb(26, 26, 46);
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle7;
             dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
             dataGridView1.GridColor = Color.FromArgb(224, 224, 224);
             dataGridView1.Location = new Point(0, 77);
@@ -105,8 +108,9 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.SelectionBackColor = Color.Cyan;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.SelectionBackColor = Color.Cyan;
+            dataGridViewCellStyle8.SelectionForeColor = Color.Black;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle8;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(750, 331);
             dataGridView1.TabIndex = 0;
@@ -172,7 +176,7 @@
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnDelete.ForeColor = Color.Black;
-            btnDelete.Location = new Point(482, 10);
+            btnDelete.Location = new Point(487, 10);
             btnDelete.Margin = new Padding(4, 3, 4, 3);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 30);
@@ -294,6 +298,9 @@
             // panel2
             // 
             panel2.BackColor = Color.White;
+            panel2.Controls.Add(btnExport);
+            panel2.Controls.Add(primaryButton1);
+            panel2.Controls.Add(btnSettings);
             panel2.Controls.Add(bthCharts);
             panel2.Controls.Add(btnEdit);
             panel2.Controls.Add(btnDelete);
@@ -305,12 +312,44 @@
             panel2.Size = new Size(749, 52);
             panel2.TabIndex = 5;
             // 
+            // primaryButton1
+            // 
+            primaryButton1.BackColor = Color.Cyan;
+            primaryButton1.FlatAppearance.BorderSize = 0;
+            primaryButton1.FlatStyle = FlatStyle.Flat;
+            primaryButton1.Font = new Font("Shabnam", 9.75F);
+            primaryButton1.ForeColor = Color.Black;
+            primaryButton1.Location = new Point(93, 14);
+            primaryButton1.Name = "primaryButton1";
+            primaryButton1.Size = new Size(75, 23);
+            primaryButton1.TabIndex = 10;
+            primaryButton1.TabStop = false;
+            primaryButton1.Text = "primaryButton1";
+            primaryButton1.UseVisualStyleBackColor = false;
+            primaryButton1.Click += primaryButton1_Click;
+            // 
+            // btnSettings
+            // 
+            btnSettings.BackColor = Color.Cyan;
+            btnSettings.FlatAppearance.BorderSize = 0;
+            btnSettings.FlatStyle = FlatStyle.Flat;
+            btnSettings.Font = new Font("Shabnam", 9.75F);
+            btnSettings.ForeColor = Color.Black;
+            btnSettings.Location = new Point(12, 12);
+            btnSettings.Name = "btnSettings";
+            btnSettings.Size = new Size(75, 30);
+            btnSettings.TabIndex = 6;
+            btnSettings.TabStop = false;
+            btnSettings.Text = "تنظیمات";
+            btnSettings.UseVisualStyleBackColor = false;
+            btnSettings.Click += btnSettings_Click;
+            // 
             // bthCharts
             // 
             bthCharts.BackColor = Color.Cyan;
             bthCharts.FlatAppearance.BorderSize = 0;
             bthCharts.FlatStyle = FlatStyle.Flat;
-            bthCharts.Location = new Point(13, 10);
+            bthCharts.Location = new Point(363, 10);
             bthCharts.Margin = new Padding(4, 3, 4, 3);
             bthCharts.Name = "bthCharts";
             bthCharts.Size = new Size(75, 30);
@@ -491,6 +530,22 @@
             pnlBalance.Size = new Size(240, 42);
             pnlBalance.TabIndex = 9;
             // 
+            // btnExport
+            // 
+            btnExport.BackColor = Color.Cyan;
+            btnExport.FlatAppearance.BorderSize = 0;
+            btnExport.FlatStyle = FlatStyle.Flat;
+            btnExport.Font = new Font("Shabnam", 9.75F);
+            btnExport.ForeColor = Color.Black;
+            btnExport.Location = new Point(270, 10);
+            btnExport.Name = "btnExport";
+            btnExport.Size = new Size(86, 30);
+            btnExport.TabIndex = 11;
+            btnExport.TabStop = false;
+            btnExport.Text = "خروجی CSV";
+            btnExport.UseVisualStyleBackColor = false;
+            btnExport.Click += btnExport_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -561,5 +616,8 @@
         private Panel pnlIncome;
         private Panel pnlBalance;
         private Button bthCharts;
+        private Controls.PrimaryButton btnSettings;
+        private Controls.PrimaryButton primaryButton1;
+        private Controls.PrimaryButton btnExport;
     }
 }

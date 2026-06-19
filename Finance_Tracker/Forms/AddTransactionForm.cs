@@ -18,20 +18,16 @@ namespace Finance_Tracker.Forms
         private readonly int _userId;
         private readonly int _transactionId;
         private readonly AppTransaction _existing;
+        private readonly string _currentUserRole;
+
         public bool Saved { get; private set; } = false;
 
-        public AddTransactionForm(DatabaseHelper db, int userId)
+        public AddTransactionForm(DatabaseHelper db, int userId, string role, AppTransaction existing = null)
         {
             InitializeComponent();
             _db = db;
             _userId = userId;
-        }
-
-        public AddTransactionForm(DatabaseHelper db, int userId, AppTransaction existing)
-        {
-            InitializeComponent();
-            _db = db;
-            _userId = userId;
+            _currentUserRole = role;
             _existing = existing;
         }
 
@@ -49,7 +45,8 @@ namespace Finance_Tracker.Forms
                 Amount = amount,
                 Category = cmbCategory.SelectedItem.ToString(),
                 Date = dtpDate.Value,
-                Type = rbIncome.Checked ? "Income" : "Expense"
+                Type = rbIncome.Checked ? "Income" : "Expense",
+                DepartmentId = _db.GetDepartmentId(cmbDepartment.SelectedItem.ToString())
             };
 
             if (_existing != null)
@@ -59,7 +56,7 @@ namespace Finance_Tracker.Forms
             }
             else
             {
-                _db.AddTransaction(_userId, transaction);
+                _db.AddTransaction(_userId, transaction, _currentUserRole);
             }
 
             Saved = true;
@@ -68,13 +65,13 @@ namespace Finance_Tracker.Forms
 
         private void addTransactionForm_Load(object sender, EventArgs e)
         {
-            cmbCategory.Items.AddRange(new string[]
-            {
-                "سرگرمی", "حمل‌ونقل", "قبوض", "خوراک",
-                "بهداشت", "پوشاک", "حقوق", "سایر"
-            });
-            cmbCategory.SelectedIndex = 0;
+            cmbCategory.Items.Clear();
+            cmbCategory.Items.AddRange(_db.GetCategories().ToArray());
+            if (cmbCategory.Items.Count > 0)
+                cmbCategory.SelectedIndex = 0;
 
+            cmbDepartment.Items.AddRange(_db.GetDepartments().ToArray());
+            cmbDepartment.SelectedIndex = 0; 
 
             rbExpense.Checked = true;
 

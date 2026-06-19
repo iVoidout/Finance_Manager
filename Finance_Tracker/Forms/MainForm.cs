@@ -27,6 +27,7 @@ namespace Finance_Tracker.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             lblUsername.Text = _currentUser.Username;
+            btnSettings.Visible = _currentUser.Role == "Admin";
 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
@@ -52,14 +53,20 @@ namespace Finance_Tracker.Forms
             {
                 DataPropertyName = "TypeDisplay",
                 HeaderText = "نوع",
-                Width = 90
+                Width = 50
             });
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Date",
                 HeaderText = "تاریخ",
-                Width = 136,
+                Width = 100,
                 DefaultCellStyle = { Format = "yyyy/MM/dd" }
+            });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "StatusDisplay",
+                HeaderText = "وضعیت",
+                Width = 76
             });
             LoadTransactions();
             dataGridView1.EnableHeadersVisualStyles = false;
@@ -73,20 +80,22 @@ namespace Finance_Tracker.Forms
             dtpFrom.Value = DateTime.Today.AddMonths(-1);
             dtpTo.Value = DateTime.Today;
 
-            cmbFilterCategory.Items.Add("دسته بندی (همه)");
-            cmbFilterCategory.Items.AddRange(new string[]
-            {
-                "سرگرمی", "حمل‌ونقل", "قبوض", "خوراک",
-                "بهداشت", "پوشاک", "حقوق", "سایر"
-            });
-            cmbFilterCategory.SelectedIndex = 0;
+            LoadCategoryComboBoxes();
 
             cmbFilterType.Items.Add("نوع (همه)");
             cmbFilterType.Items.Add("درآمد");
             cmbFilterType.Items.Add("هزینه");
             cmbFilterType.SelectedIndex = 0;
         }
+        private void LoadCategoryComboBoxes()
+        {
+            var categories = _db.GetCategories();
 
+            cmbFilterCategory.Items.Clear();
+            cmbFilterCategory.Items.Add("دسته بندی (همه)");
+            cmbFilterCategory.Items.AddRange(categories.ToArray());
+            cmbFilterCategory.SelectedIndex = 0;
+        }
         private void LoadTransactions()
         {
             _transactions = _db.GetTransactions(_currentUser.Id);
@@ -97,8 +106,10 @@ namespace Finance_Tracker.Forms
         }
         private void UpdateSummary()
         {
-            decimal income = _transactions.Where(t => t.Type == "Income").Sum(t => t.Amount);
-            decimal expense = _transactions.Where(t => t.Type == "Expense").Sum(t => t.Amount);
+            var approved = _transactions.Where(t => t.Status == "Approved").ToList();
+
+            decimal income = approved.Where(t => t.Type == "Income").Sum(t => t.Amount);
+            decimal expense = approved.Where(t => t.Type == "Expense").Sum(t => t.Amount);
             decimal balance = income - expense;
 
             lblBalance.Text = $"{FormatRial(balance)}";
@@ -118,14 +129,9 @@ namespace Finance_Tracker.Forms
             this.Close();
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            var form = new AddTransactionForm(_db, _currentUser.Id);
+            var form = new AddTransactionForm(_db, _currentUser.Id, _currentUser.Role);
             form.ShowDialog();
             if (form.Saved)
             {
@@ -170,7 +176,7 @@ namespace Finance_Tracker.Forms
             }
 
             var selected = (AppTransaction)dataGridView1.SelectedRows[0].DataBoundItem;
-            var form = new AddTransactionForm(_db, _currentUser.Id, selected);
+            var form = new AddTransactionForm(_db, _currentUser.Id, _currentUser.Role, selected);
             form.ShowDialog();
 
             if (form.Saved)
@@ -198,7 +204,8 @@ namespace Finance_Tracker.Forms
 
         private void ApplyFilter()
         {
-            var filtered = _transactions.AsEnumerable();
+            var approved = _transactions.Where(t => t.Status == "Approved").ToList();
+            var filtered = approved.AsEnumerable();
 
             filtered = filtered.Where(t => t.Date.Date >= dtpFrom.Value.Date
                                         && t.Date.Date <= dtpTo.Value.Date);
@@ -260,13 +267,72 @@ namespace Finance_Tracker.Forms
 
         private void bthCharts_Click(object sender, EventArgs e)
         {
-            if (_transactions == null || _transactions.Count == 0)
+            var currentlyShown = dataGridView1.DataSource as List<AppTransaction>;
+
+            if (currentlyShown == null || currentlyShown.Count == 0)
             {
                 MessageBox.Show(".هیچ تراکنشی برای نمایش وجود ندارد");
                 return;
             }
-            new ChartsForm(_transactions).ShowDialog();
+            new ChartsForm(currentlyShown).ShowDialog();
         }
 
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            if (_currentUser.Role != "Admin")
+            {
+                MessageBox.Show("شما دسترسی به این بخش را ندارید.");
+                return;
+            }
+
+            var form = new SettingsForm(_db, _currentUser.Id);
+            form.ShowDialog();
+
+            if (form.CategoriesChanged)
+                LoadCategoryComboBoxes();
+        }
+
+        private void primaryButton1_Click(object sender, EventArgs e)
+        {
+            var form = new ApprovalForm(_db);
+            form.ShowDialog();
+
+            if (form.Changed)
+            {
+                _transactions = _db.GetTransactions(_currentUser.Id);
+                ApplyFilter();
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            var data = dataGridView1.DataSource as List<AppTransaction>;
+
+            if (data == null || data.Count == 0)
+            {
+                MessageBox.Show("هیچ تراکنشی برای خروجی گرفتن وجود ندارد.");
+                return;
+            }
+
+            var save = new SaveFileDialog();
+            save.Filter = "CSV files (*.csv)|*.csv";
+            save.FileName = $"report_{DateTime.Now:yyyyMMdd_HHmm}.csv";
+
+            if (save.ShowDialog() != DialogResult.OK) return;
+
+            var lines = new List<string>();
+            lines.Add("توضیحات,مبلغ,دسته‌بندی,نوع,تاریخ,وضعیت");
+
+            foreach (var t in data)
+            {
+                // wrap description in quotes in case it contains commas
+                string desc = $"\"{t.Description.Replace("\"", "\"\"")}\"";
+                lines.Add($"{desc},{t.Amount},{t.Category},{t.TypeDisplay},{t.Date:yyyy/MM/dd},{t.StatusDisplay}");
+            }
+
+            File.WriteAllLines(save.FileName, lines, new UTF8Encoding(true));
+
+            MessageBox.Show(".فایل با موفقیت ذخیره شد");
+        }
     }
 }

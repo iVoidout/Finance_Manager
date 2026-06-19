@@ -22,6 +22,13 @@ namespace Finance_Tracker.Forms
         private void RegisterForm_Load(object sender, EventArgs e)
         {
 
+            cmbRole.Items.Add("کارمند");
+            cmbRole.Items.Add("مدیر");
+            cmbRole.SelectedIndex = 0;
+
+            cmbDepartment.Items.AddRange(_db.GetDepartments().ToArray());
+            if (cmbDepartment.Items.Count > 0)
+                cmbDepartment.SelectedIndex = 0;
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -48,7 +55,9 @@ namespace Finance_Tracker.Forms
             }
 
             var hash = PasswordHelper.Hash(password);
-            bool success = _db.RegisterUser(username, hash);
+            string role = cmbRole.SelectedIndex == 1 ? "Admin" : "Employee";
+            int deptId = _db.GetDepartmentId(cmbDepartment.SelectedItem.ToString());
+            bool success = _db.RegisterUser(username, hash, role, deptId);
 
             if (!success)
             {
