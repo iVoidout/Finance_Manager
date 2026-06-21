@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace Finance_Tracker.Forms
 {
-    public partial class SettingsForm : Form
+    public partial class CategoriesForm : Form
     {
         private readonly DatabaseHelper _db;
         private readonly int _userId;
         public bool CategoriesChanged { get; private set; } = false;
 
-        public SettingsForm(DatabaseHelper db, int userId)
+        public CategoriesForm(DatabaseHelper db, int userId)
         {
             InitializeComponent();
             _db = db;
@@ -27,12 +27,14 @@ namespace Finance_Tracker.Forms
         private void SettingsFrom_Load(object sender, EventArgs e)
         {
             LoadCategories();
+            rbCatIncome.Checked = true;
         }
 
         private void LoadCategories()
         {
+            string type = rbCatIncome.Checked ? "Income" : "Expense";
             lstCategories.Items.Clear();
-            foreach (var cat in _db.GetCategories())
+            foreach (var cat in _db.GetCategories(type))
                 lstCategories.Items.Add(cat);
         }
 
@@ -51,7 +53,9 @@ namespace Finance_Tracker.Forms
                 return;
             }
 
-            _db.AddCategory(name);
+            string type = rbCatIncome.Checked ? "Income" : "Expense";
+            _db.AddCategory(name, type);
+
             txtNewCategory.Clear();
             CategoriesChanged = true;
             LoadCategories();
@@ -74,13 +78,24 @@ namespace Finance_Tracker.Forms
 
             if (confirm != DialogResult.Yes) return;
 
-            _db.DeleteCategory(lstCategories.SelectedItem.ToString());
+            string type = rbCatIncome.Checked ? "Income" : "Expense";
+            _db.DeleteCategory(lstCategories.SelectedItem.ToString(), type);
             CategoriesChanged = true;
             LoadCategories();
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void rbCatIncome_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadCategories();
+        }
+
+        private void rbCatExpense_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadCategories();
         }
     }
 }

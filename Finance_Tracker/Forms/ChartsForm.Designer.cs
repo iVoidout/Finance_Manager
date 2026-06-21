@@ -40,7 +40,7 @@
             webView1.Dock = DockStyle.Fill;
             webView1.Location = new Point(0, 0);
             webView1.Name = "webView1";
-            webView1.Size = new Size(634, 411);
+            webView1.Size = new Size(634, 471);
             webView1.TabIndex = 0;
             webView1.ZoomFactor = 1D;
             // 
@@ -48,7 +48,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(634, 411);
+            ClientSize = new Size(634, 471);
             Controls.Add(webView1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;

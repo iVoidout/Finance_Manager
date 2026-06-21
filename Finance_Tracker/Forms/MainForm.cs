@@ -27,7 +27,8 @@ namespace Finance_Tracker.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             lblUsername.Text = _currentUser.Username;
-            btnSettings.Visible = _currentUser.Role == "Admin";
+            lblUserRole.Text = _currentUser.Role == "Admin" ? "مدیر:" : "کارمند:";
+            btnAdminPanel.Visible = _currentUser.Role == "Admin";
 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
@@ -42,6 +43,12 @@ namespace Finance_Tracker.Forms
                 DataPropertyName = "Description",
                 HeaderText = "توضیحات",
                 Width = 200
+            });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DepartmentName",
+                HeaderText = "دپارتمان",
+                Width = 80
             });
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -68,7 +75,6 @@ namespace Finance_Tracker.Forms
                 HeaderText = "وضعیت",
                 Width = 76
             });
-            LoadTransactions();
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridView1.ColumnHeadersDefaultCellStyle.BackColor;
 
@@ -80,27 +86,37 @@ namespace Finance_Tracker.Forms
             dtpFrom.Value = DateTime.Today.AddMonths(-1);
             dtpTo.Value = DateTime.Today;
 
-            LoadCategoryComboBoxes();
+            LoadFilterComboBoxes();
+            LoadAllTransactionsForUser();
 
             cmbFilterType.Items.Add("نوع (همه)");
             cmbFilterType.Items.Add("درآمد");
             cmbFilterType.Items.Add("هزینه");
             cmbFilterType.SelectedIndex = 0;
+
         }
-        private void LoadCategoryComboBoxes()
+        private void LoadFilterComboBoxes()
         {
-            var categories = _db.GetCategories();
+            var categories = _db.GetAllCategories();
 
             cmbFilterCategory.Items.Clear();
             cmbFilterCategory.Items.Add("دسته بندی (همه)");
             cmbFilterCategory.Items.AddRange(categories.ToArray());
             cmbFilterCategory.SelectedIndex = 0;
+
+            var departments = _db.GetDepartments();
+            cmbFilterDepartment.Items.Clear();
+            cmbFilterDepartment.Items.Add("دپارتمان (همه)");
+            cmbFilterDepartment.Items.AddRange(departments.ToArray());
+            cmbFilterDepartment.SelectedIndex = 0;
         }
-        private void LoadTransactions()
+        private void LoadAllTransactionsForUser()
         {
-            _transactions = _db.GetTransactions(_currentUser.Id);
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = _transactions;
+            _transactions = _currentUser.Role == "Admin" ? _db.GetAllTransactions() : _db.GetTransactions(_currentUser.Id);
+            ApplyFilter();
+
+            foreach (var t in _transactions)
+                t.DepartmentName = _db.GetDepartmentName(t.DepartmentId);
 
             UpdateSummary();
         }
@@ -135,7 +151,7 @@ namespace Finance_Tracker.Forms
             form.ShowDialog();
             if (form.Saved)
             {
-                _transactions = _db.GetTransactions(_currentUser.Id);
+                LoadAllTransactionsForUser();
                 ApplyFilter();
             }
         }
@@ -163,7 +179,7 @@ namespace Finance_Tracker.Forms
                 _db.DeleteTransaction(selected.Id);
             }
 
-            _transactions = _db.GetTransactions(_currentUser.Id);
+            LoadAllTransactionsForUser();
             ApplyFilter();
         }
 
@@ -181,7 +197,7 @@ namespace Finance_Tracker.Forms
 
             if (form.Saved)
             {
-                _transactions = _db.GetTransactions(_currentUser.Id);
+                LoadAllTransactionsForUser();
                 ApplyFilter();
             }
         }
@@ -213,6 +229,9 @@ namespace Finance_Tracker.Forms
             if (cmbFilterCategory.SelectedIndex > 0)
                 filtered = filtered.Where(t => t.Category == cmbFilterCategory.SelectedItem.ToString());
 
+            if (cmbFilterDepartment.SelectedIndex > 0)
+                filtered = filtered.Where(t => t.DepartmentName == cmbFilterDepartment.SelectedItem.ToString());
+
             if (cmbFilterType.SelectedIndex == 1)
                 filtered = filtered.Where(t => t.Type == "Income");
             else if (cmbFilterType.SelectedIndex == 2)
@@ -224,6 +243,15 @@ namespace Finance_Tracker.Forms
             dataGridView1.DataSource = result;
 
             UpdateFilterSummary(result);
+        }
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+            dtpFrom.Value = DateTime.Today.AddMonths(-1);
+            dtpTo.Value = DateTime.Today;
+            cmbFilterCategory.SelectedIndex = 0;
+            cmbFilterType.SelectedIndex = 0;
+            cmbFilterDepartment.SelectedIndex = 0;
+            LoadAllTransactionsForUser();
         }
 
         private void UpdateFilterSummary(List<AppTransaction> filtered)
@@ -241,28 +269,9 @@ namespace Finance_Tracker.Forms
             //                            : ColorTranslator.FromHtml("#D40202"); // red
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MainForm_Load_1(object sender, EventArgs e)
-        {
-            this.Font = new Font("Shabnam", 10f);
-        }
-
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
-        }
-
-        private void btnClearFilter_Click(object sender, EventArgs e)
-        {
-            dtpFrom.Value = DateTime.Today.AddMonths(-1);
-            dtpTo.Value = DateTime.Today;
-            cmbFilterCategory.SelectedIndex = 0;
-            cmbFilterType.SelectedIndex = 0;
-            LoadTransactions();
         }
 
         private void bthCharts_Click(object sender, EventArgs e)
@@ -285,23 +294,11 @@ namespace Finance_Tracker.Forms
                 return;
             }
 
-            var form = new SettingsForm(_db, _currentUser.Id);
+            var form = new CategoriesForm(_db, _currentUser.Id);
             form.ShowDialog();
 
             if (form.CategoriesChanged)
-                LoadCategoryComboBoxes();
-        }
-
-        private void primaryButton1_Click(object sender, EventArgs e)
-        {
-            var form = new ApprovalForm(_db);
-            form.ShowDialog();
-
-            if (form.Changed)
-            {
-                _transactions = _db.GetTransactions(_currentUser.Id);
-                ApplyFilter();
-            }
+                LoadFilterComboBoxes();
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -333,6 +330,16 @@ namespace Finance_Tracker.Forms
             File.WriteAllLines(save.FileName, lines, new UTF8Encoding(true));
 
             MessageBox.Show(".فایل با موفقیت ذخیره شد");
+        }
+
+        private void btnAdminPanel_Click(object sender, EventArgs e)
+        {
+            if (_currentUser.Role == "Admin") 
+            new AdminForm(_db, _currentUser).ShowDialog();
+
+            LoadFilterComboBoxes();
+            LoadAllTransactionsForUser();
+            ApplyFilter();
         }
     }
 }

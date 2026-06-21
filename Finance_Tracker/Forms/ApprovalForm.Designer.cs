@@ -42,8 +42,8 @@
             dgvPending.AllowUserToAddRows = false;
             dgvPending.AllowUserToDeleteRows = false;
             dgvPending.AllowUserToOrderColumns = true;
-            dgvPending.AllowUserToResizeColumns = false;
             dgvPending.AllowUserToResizeRows = false;
+            dgvPending.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvPending.BackgroundColor = Color.White;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
@@ -129,6 +129,7 @@
             Name = "ApprovalForm";
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "تایید تراکنش ها";
             Load += ApprovalForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvPending).EndInit();

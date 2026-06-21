@@ -56,6 +56,7 @@
             // 
             // txtAmount
             // 
+            txtAmount.ImeMode = ImeMode.NoControl;
             txtAmount.Location = new Point(13, 34);
             txtAmount.Name = "txtAmount";
             txtAmount.Size = new Size(206, 23);
@@ -121,7 +122,7 @@
             // 
             rbIncome.AutoSize = true;
             rbIncome.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            rbIncome.Location = new Point(287, 156);
+            rbIncome.Location = new Point(269, 93);
             rbIncome.Name = "rbIncome";
             rbIncome.Size = new Size(53, 22);
             rbIncome.TabIndex = 6;
@@ -134,13 +135,14 @@
             // 
             rbExpense.AutoSize = true;
             rbExpense.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            rbExpense.Location = new Point(346, 156);
+            rbExpense.Location = new Point(363, 93);
             rbExpense.Name = "rbExpense";
             rbExpense.Size = new Size(57, 22);
             rbExpense.TabIndex = 5;
             rbExpense.TabStop = true;
             rbExpense.Text = "هزینه";
             rbExpense.UseVisualStyleBackColor = true;
+            rbExpense.CheckedChanged += rbExpense_CheckedChanged;
             // 
             // btnSave
             // 
@@ -175,7 +177,7 @@
             // cmbDepartment
             // 
             cmbDepartment.FormattingEnabled = true;
-            cmbDepartment.Location = new Point(239, 93);
+            cmbDepartment.Location = new Point(238, 153);
             cmbDepartment.Name = "cmbDepartment";
             cmbDepartment.Size = new Size(206, 23);
             cmbDepartment.TabIndex = 9;
@@ -184,7 +186,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(239, 72);
+            label5.Location = new Point(238, 132);
             label5.Name = "label5";
             label5.Size = new Size(50, 18);
             label5.TabIndex = 0;

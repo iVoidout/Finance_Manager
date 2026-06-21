@@ -66,12 +66,11 @@ namespace Finance_Tracker.Forms
         private void addTransactionForm_Load(object sender, EventArgs e)
         {
             cmbCategory.Items.Clear();
-            cmbCategory.Items.AddRange(_db.GetCategories().ToArray());
-            if (cmbCategory.Items.Count > 0)
-                cmbCategory.SelectedIndex = 0;
+
+            LoadCategoriesForType();
 
             cmbDepartment.Items.AddRange(_db.GetDepartments().ToArray());
-            cmbDepartment.SelectedIndex = 0; 
+            cmbDepartment.SelectedIndex = 0;
 
             rbExpense.Checked = true;
 
@@ -90,6 +89,8 @@ namespace Finance_Tracker.Forms
                 rbIncome.Checked = _existing.Type == "Income";
                 rbExpense.Checked = _existing.Type == "Expense";
 
+                LoadCategoriesForType();
+
                 int idx = cmbCategory.Items.IndexOf(_existing.Category);
                 cmbCategory.SelectedIndex = idx >= 0 ? idx : 0;
 
@@ -99,9 +100,22 @@ namespace Finance_Tracker.Forms
 
         }
 
+        private void LoadCategoriesForType()
+        {
+            string type = rbIncome.Checked ? "Income" : "Expense";
+            cmbCategory.Items.Clear();
+            cmbCategory.Items.AddRange(_db.GetCategories(type).ToArray());
+            if (cmbCategory.Items.Count > 0)
+                cmbCategory.SelectedIndex = 0;
+        }
+
         private void rbIncome_CheckedChanged(object sender, EventArgs e)
         {
-
+            LoadCategoriesForType();
+        }
+        private void rbExpense_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadCategoriesForType();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -148,5 +162,6 @@ namespace Finance_Tracker.Forms
         {
 
         }
+
     }
 }

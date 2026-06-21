@@ -27,12 +27,14 @@ namespace Finance_Tracker.Helpers
                 FOREIGN KEY (DepartmentId) REFERENCES Departments(Id)
             );
             CREATE TABLE IF NOT EXISTS Departments (
-            Id INTEGER PRIMARY KEY AUTOINCREMENT,
-            Name TEXT NOT NULL UNIQUE
-        );
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Name TEXT NOT NULL UNIQUE
+            );
             CREATE TABLE IF NOT EXISTS Categories (
-            Id INTEGER PRIMARY KEY AUTOINCREMENT,
-            Name TEXT NOT NULL UNIQUE
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Name TEXT NOT NULL UNIQUE,
+                Type TEXT NOT NULL DEFAULT 'Expense',
+                UNIQUE(Name, Type)
             );
             CREATE TABLE IF NOT EXISTS Transactions (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,7 +48,17 @@ namespace Finance_Tracker.Helpers
                 Status TEXT NOT NULL DEFAULT 'Pending',
                 FOREIGN KEY (UserId) REFERENCES Users(Id)
                 FOREIGN KEY (DepartmentId) REFERENCES Departments(Id)
+            );
+            CREATE TABLE IF NOT EXISTS Budgets (
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                DepartmentId INTEGER NOT NULL,
+                Year INTEGER NOT NULL,
+                Month INTEGER NOT NULL,
+                Amount INTEGER NOT NULL,
+                FOREIGN KEY (DepartmentId) REFERENCES Departments(Id),
+                UNIQUE(DepartmentId, Year, Month)
             );";
+
             cmd.ExecuteNonQuery();
 
 
@@ -72,9 +84,13 @@ namespace Finance_Tracker.Helpers
 
             if (catCount == 0)
             {
-                string[] defaults = { "حقوق", "اجاره", "تجهیزات", "بازاریابی", "مالیات", "سفر", "آب و برق", "سایر" };
-                foreach (var cat in defaults)
-                    AddCategory(cat);
+                string[] expenseDefaults = { "حقوق", "اجاره", "تجهیزات", "بازاریابی", "مالیات", "سفر", "آب و برق", "سایر" };
+                string[] incomeDefaults = { "فروش", "سرمایه‌گذاری", "خدمات", "سایر" };
+
+                foreach (var cat in expenseDefaults)
+                    AddCategory(cat, "Expense");
+                foreach (var cat in incomeDefaults)
+                    AddCategory(cat, "Income");
             }
 
 
@@ -113,26 +129,42 @@ namespace Finance_Tracker.Helpers
             };
         }
 
-        public void AddCategory(string name)
+        public void AddCategory(string name, string type)
         {
             using var conn = new SqliteConnection(ConnectionString);
             conn.Open();
             var cmd = conn.CreateCommand();
-            cmd.CommandText = "INSERT INTO Categories (Name) VALUES ($name)";
+            cmd.CommandText = "INSERT OR IGNORE INTO Categories (Name, Type) VALUES ($name, $type)";
             cmd.Parameters.AddWithValue("$name", name);
+            cmd.Parameters.AddWithValue("$type", type);
             cmd.ExecuteNonQuery();
         }
 
-        public void DeleteCategory(string name)
+        public void DeleteCategory(string name, string type)
         {
             using var conn = new SqliteConnection(ConnectionString);
             conn.Open();
             var cmd = conn.CreateCommand();
-            cmd.CommandText = "DELETE FROM Categories WHERE Name = $name";
+            cmd.CommandText = "DELETE FROM Categories WHERE Name = $name AND Type = $type";
             cmd.Parameters.AddWithValue("$name", name);
+            cmd.Parameters.AddWithValue("$type", type);
             cmd.ExecuteNonQuery();
         }
-        public List<string> GetCategories()
+        public List<string> GetCategories(string type)
+        {
+            var list = new List<string>();
+            using var conn = new SqliteConnection(ConnectionString);
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT Name FROM Categories WHERE Type = $type ORDER BY Name";
+            cmd.Parameters.AddWithValue("$type", type);
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+                list.Add(reader.GetString(0));
+            return list;
+        }
+
+        public List<string> GetAllCategories()
         {
             var list = new List<string>();
             using var conn = new SqliteConnection(ConnectionString);
@@ -207,7 +239,7 @@ namespace Finance_Tracker.Helpers
             using var conn = new SqliteConnection(ConnectionString);
             conn.Open();
             var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT Id, Description, Amount, Category, Date, Type, DepartmentId FROM Transactions WHERE UserId = $uid";
+            cmd.CommandText = "SELECT Id, Description, Amount, Category, Date, Type, DepartmentId, Status FROM Transactions WHERE UserId = $uid";
             cmd.Parameters.AddWithValue("$uid", userId);
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -220,7 +252,8 @@ namespace Finance_Tracker.Helpers
                     Category = reader.GetString(3),
                     Date = DateTime.Parse(reader.GetString(4)),
                     Type = reader.GetString(5),
-                    DepartmentId = reader.IsDBNull(6) ? (int?)null : reader.GetInt32(6)
+                    DepartmentId = reader.IsDBNull(6) ? (int?)null : reader.GetInt32(6),
+                    Status = reader.GetString(7)
                 });
             }
             return list;
@@ -232,7 +265,7 @@ namespace Finance_Tracker.Helpers
             using var conn = new SqliteConnection(ConnectionString);
             conn.Open();
             var cmd = conn.CreateCommand();
-            cmd.CommandText = @"SELECT Id, DepartmentId, Description, Amount, Category, Date, Type
+            cmd.CommandText = @"SELECT Id, DepartmentId, Description, Amount, Category, Date, Type, Status
                         FROM Transactions";
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -240,12 +273,13 @@ namespace Finance_Tracker.Helpers
                 list.Add(new AppTransaction
                 {
                     Id = reader.GetInt32(0),
-                    DepartmentId = reader.IsDBNull(6) ? (int?)null : reader.GetInt32(6),
-                    Description = reader.GetString(1),
-                    Amount = reader.GetInt64(2),
-                    Category = reader.GetString(3),
-                    Date = DateTime.Parse(reader.GetString(4)),
-                    Type = reader.GetString(5)
+                    DepartmentId = reader.IsDBNull(1) ? (int?)null : reader.GetInt32(1),
+                    Description = reader.GetString(2),
+                    Amount = reader.GetInt64(3),
+                    Category = reader.GetString(4),
+                    Date = DateTime.Parse(reader.GetString(5)),
+                    Type = reader.GetString(6),
+                    Status = reader.GetString(7)
                 });
             }
             return list;
@@ -287,7 +321,7 @@ namespace Finance_Tracker.Helpers
             conn.Open();
             var cmd = conn.CreateCommand();
             cmd.CommandText = @"UPDATE Transactions 
-                        SET Description = $desc, Amount = $amt, Category = $cat, Date = $date, Type = $type DepartmentId = WHERE Id = $id";
+                        SET Description = $desc, Amount = $amt, Category = $cat, Date = $date, Type = $type, DepartmentId = $dept WHERE Id = $id";
             cmd.Parameters.AddWithValue("$desc", t.Description);
             cmd.Parameters.AddWithValue("$amt", (long)t.Amount);
             cmd.Parameters.AddWithValue("$cat", t.Category);
@@ -335,5 +369,62 @@ namespace Finance_Tracker.Helpers
             cmd.ExecuteNonQuery();
         }
 
+        public void SetBudget(int departmentId, int year, int month, long amount)
+        {
+            using var conn = new SqliteConnection(ConnectionString);
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = @"INSERT INTO Budgets (DepartmentId, Year, Month, Amount)
+                        VALUES ($dept, $year, $month, $amount)
+                        ON CONFLICT(DepartmentId, Year, Month) 
+                        DO UPDATE SET Amount = $amount";
+            cmd.Parameters.AddWithValue("$dept", departmentId);
+            cmd.Parameters.AddWithValue("$year", year);
+            cmd.Parameters.AddWithValue("$month", month);
+            cmd.Parameters.AddWithValue("$amount", amount);
+            cmd.ExecuteNonQuery();
+        }
+
+        public List<Budget> GetBudgets(int year, int month)
+        {
+            var list = new List<Budget>();
+            using var conn = new SqliteConnection(ConnectionString);
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = @"
+            SELECT b.Id, b.DepartmentId, d.Name, b.Year, b.Month, b.Amount
+            FROM Budgets b
+            JOIN Departments d ON b.DepartmentId = d.Id
+            WHERE b.Year = $year AND b.Month = $month";
+            cmd.Parameters.AddWithValue("$year", year);
+            cmd.Parameters.AddWithValue("$month", month);
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                list.Add(new Budget
+                {
+                    Id = reader.GetInt32(0),
+                    DepartmentId = reader.GetInt32(1),
+                    DepartmentName = reader.GetString(2),
+                    Year = reader.GetInt32(3),
+                    Month = reader.GetInt32(4),
+                    Amount = reader.GetInt64(5)
+                });
+            }
+            return list;
+        }
+
+        public long GetDepartmentSpending(int departmentId, int year, int month)
+        {
+            using var conn = new SqliteConnection(ConnectionString);
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT COALESCE(SUM(Amount), 0) FROM Transactions WHERE DepartmentId = $dept AND Type = 'Expense' 
+            AND Status = 'Approved' AND strftime('%Y', Date) = $year AND strftime('%m', Date) = $month";
+            cmd.Parameters.AddWithValue("$dept", departmentId);
+            cmd.Parameters.AddWithValue("$year", year.ToString());
+            cmd.Parameters.AddWithValue("$month", month.ToString("D2"));
+            return Convert.ToInt64(cmd.ExecuteScalar());
+        }
     }
 }

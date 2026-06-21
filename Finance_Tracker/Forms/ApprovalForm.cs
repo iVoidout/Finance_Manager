@@ -30,8 +30,9 @@ namespace Finance_Tracker.Forms
             dgvPending.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Amount", HeaderText = "مبلغ", Width = 120, DefaultCellStyle = { Format = "N0" } });
             dgvPending.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Description", HeaderText = "توضیحات", Width = 150 });
             dgvPending.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Category", HeaderText = "دسته‌بندی", Width = 110 });
-            dgvPending.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "TypeDisplay", HeaderText = "نوع", Width = 70 });
+            dgvPending.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "TypeDisplay", HeaderText = "نوع", Width = 55 });
             dgvPending.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Date", HeaderText = "تاریخ", Width = 100, DefaultCellStyle = { Format = "yyyy/MM/dd" } });
+            dgvPending.Columns.Add(new DataGridViewTextBoxColumn{DataPropertyName = "DepartmentName", HeaderText = "دپارتمان", Width = 60});
 
             LoadPending();
         }
@@ -39,6 +40,8 @@ namespace Finance_Tracker.Forms
         private void LoadPending()
         {
             _pending = _db.GetPendingTransactions();
+            foreach (var t in _pending)
+                t.DepartmentName = _db.GetDepartmentName(t.DepartmentId);
             dgvPending.DataSource = null;
             dgvPending.DataSource = _pending;
         }

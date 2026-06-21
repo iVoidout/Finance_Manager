@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             dataGridView1 = new DataGridView();
             lblBalance = new Label();
             lblIncome = new Label();
@@ -43,13 +43,13 @@
             label3 = new Label();
             btnLogout = new Button();
             panel1 = new Panel();
+            btnAdminPanel = new Finance_Tracker.Controls.PrimaryButton();
             lblTodayDate = new Label();
             lblUsername = new Label();
             label5 = new Label();
-            label4 = new Label();
+            lblUserRole = new Label();
             panel2 = new Panel();
-            primaryButton1 = new Finance_Tracker.Controls.PrimaryButton();
-            btnSettings = new Finance_Tracker.Controls.PrimaryButton();
+            btnExport = new Finance_Tracker.Controls.PrimaryButton();
             bthCharts = new Button();
             btnEdit = new Button();
             filterPanel = new Panel();
@@ -64,7 +64,7 @@
             pnlExpense = new Panel();
             pnlIncome = new Panel();
             pnlBalance = new Panel();
-            btnExport = new Finance_Tracker.Controls.PrimaryButton();
+            cmbFilterDepartment = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -80,26 +80,26 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = Color.WhiteSmoke;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = Color.WhiteSmoke;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.BackgroundColor = SystemColors.Window;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.White;
-            dataGridViewCellStyle6.Font = new Font("Shabnam", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.ForeColor = Color.Black;
-            dataGridViewCellStyle6.SelectionBackColor = Color.White;
-            dataGridViewCellStyle6.SelectionForeColor = Color.White;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.White;
+            dataGridViewCellStyle2.Font = new Font("Shabnam", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Window;
-            dataGridViewCellStyle7.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle7.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(216, 239, 227);
-            dataGridViewCellStyle7.SelectionForeColor = Color.FromArgb(26, 26, 46);
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(216, 239, 227);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(26, 26, 46);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
             dataGridView1.GridColor = Color.FromArgb(224, 224, 224);
             dataGridView1.Location = new Point(0, 77);
@@ -108,9 +108,9 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle8.SelectionBackColor = Color.Cyan;
-            dataGridViewCellStyle8.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.SelectionBackColor = Color.Cyan;
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(750, 331);
             dataGridView1.TabIndex = 0;
@@ -227,10 +227,10 @@
             btnLogout.FlatStyle = FlatStyle.Flat;
             btnLogout.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogout.ForeColor = Color.Black;
-            btnLogout.Location = new Point(12, 8);
+            btnLogout.Location = new Point(9, 7);
             btnLogout.Margin = new Padding(4, 3, 4, 3);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(75, 23);
+            btnLogout.Size = new Size(75, 26);
             btnLogout.TabIndex = 2;
             btnLogout.TabStop = false;
             btnLogout.Text = "خروج";
@@ -240,10 +240,11 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(btnAdminPanel);
             panel1.Controls.Add(lblTodayDate);
             panel1.Controls.Add(lblUsername);
             panel1.Controls.Add(label5);
-            panel1.Controls.Add(label4);
+            panel1.Controls.Add(lblUserRole);
             panel1.Controls.Add(btnLogout);
             panel1.Dock = DockStyle.Top;
             panel1.ForeColor = Color.Black;
@@ -253,6 +254,22 @@
             panel1.Size = new Size(749, 39);
             panel1.TabIndex = 4;
             panel1.Paint += panel1_Paint;
+            // 
+            // btnAdminPanel
+            // 
+            btnAdminPanel.BackColor = Color.Cyan;
+            btnAdminPanel.FlatAppearance.BorderSize = 0;
+            btnAdminPanel.FlatStyle = FlatStyle.Flat;
+            btnAdminPanel.Font = new Font("Shabnam", 9.75F);
+            btnAdminPanel.ForeColor = Color.Black;
+            btnAdminPanel.Location = new Point(91, 6);
+            btnAdminPanel.Name = "btnAdminPanel";
+            btnAdminPanel.Size = new Size(75, 26);
+            btnAdminPanel.TabIndex = 13;
+            btnAdminPanel.TabStop = false;
+            btnAdminPanel.Text = "مدیریت";
+            btnAdminPanel.UseVisualStyleBackColor = false;
+            btnAdminPanel.Click += btnAdminPanel_Click;
             // 
             // lblTodayDate
             // 
@@ -285,22 +302,20 @@
             label5.TabIndex = 3;
             label5.Text = "تاریخ امروز:";
             // 
-            // label4
+            // lblUserRole
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(694, 12);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(33, 15);
-            label4.TabIndex = 3;
-            label4.Text = "کاربر:";
+            lblUserRole.AutoSize = true;
+            lblUserRole.Location = new Point(694, 12);
+            lblUserRole.Margin = new Padding(4, 0, 4, 0);
+            lblUserRole.Name = "lblUserRole";
+            lblUserRole.Size = new Size(33, 15);
+            lblUserRole.TabIndex = 3;
+            lblUserRole.Text = "کاربر:";
             // 
             // panel2
             // 
             panel2.BackColor = Color.White;
             panel2.Controls.Add(btnExport);
-            panel2.Controls.Add(primaryButton1);
-            panel2.Controls.Add(btnSettings);
             panel2.Controls.Add(bthCharts);
             panel2.Controls.Add(btnEdit);
             panel2.Controls.Add(btnDelete);
@@ -312,44 +327,28 @@
             panel2.Size = new Size(749, 52);
             panel2.TabIndex = 5;
             // 
-            // primaryButton1
+            // btnExport
             // 
-            primaryButton1.BackColor = Color.Cyan;
-            primaryButton1.FlatAppearance.BorderSize = 0;
-            primaryButton1.FlatStyle = FlatStyle.Flat;
-            primaryButton1.Font = new Font("Shabnam", 9.75F);
-            primaryButton1.ForeColor = Color.Black;
-            primaryButton1.Location = new Point(93, 14);
-            primaryButton1.Name = "primaryButton1";
-            primaryButton1.Size = new Size(75, 23);
-            primaryButton1.TabIndex = 10;
-            primaryButton1.TabStop = false;
-            primaryButton1.Text = "primaryButton1";
-            primaryButton1.UseVisualStyleBackColor = false;
-            primaryButton1.Click += primaryButton1_Click;
-            // 
-            // btnSettings
-            // 
-            btnSettings.BackColor = Color.Cyan;
-            btnSettings.FlatAppearance.BorderSize = 0;
-            btnSettings.FlatStyle = FlatStyle.Flat;
-            btnSettings.Font = new Font("Shabnam", 9.75F);
-            btnSettings.ForeColor = Color.Black;
-            btnSettings.Location = new Point(12, 12);
-            btnSettings.Name = "btnSettings";
-            btnSettings.Size = new Size(75, 30);
-            btnSettings.TabIndex = 6;
-            btnSettings.TabStop = false;
-            btnSettings.Text = "تنظیمات";
-            btnSettings.UseVisualStyleBackColor = false;
-            btnSettings.Click += btnSettings_Click;
+            btnExport.BackColor = Color.Cyan;
+            btnExport.FlatAppearance.BorderSize = 0;
+            btnExport.FlatStyle = FlatStyle.Flat;
+            btnExport.Font = new Font("Shabnam", 9.75F);
+            btnExport.ForeColor = Color.Black;
+            btnExport.Location = new Point(12, 12);
+            btnExport.Name = "btnExport";
+            btnExport.Size = new Size(86, 30);
+            btnExport.TabIndex = 11;
+            btnExport.TabStop = false;
+            btnExport.Text = "خروجی CSV";
+            btnExport.UseVisualStyleBackColor = false;
+            btnExport.Click += btnExport_Click;
             // 
             // bthCharts
             // 
             bthCharts.BackColor = Color.Cyan;
             bthCharts.FlatAppearance.BorderSize = 0;
             bthCharts.FlatStyle = FlatStyle.Flat;
-            bthCharts.Location = new Point(363, 10);
+            bthCharts.Location = new Point(105, 12);
             bthCharts.Margin = new Padding(4, 3, 4, 3);
             bthCharts.Name = "bthCharts";
             bthCharts.Size = new Size(75, 30);
@@ -378,6 +377,7 @@
             // filterPanel
             // 
             filterPanel.BackColor = Color.Transparent;
+            filterPanel.Controls.Add(cmbFilterDepartment);
             filterPanel.Controls.Add(label7);
             filterPanel.Controls.Add(label6);
             filterPanel.Controls.Add(btnClearFilter);
@@ -396,7 +396,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Shabnam", 9F);
-            label7.Location = new Point(126, 12);
+            label7.Location = new Point(104, 13);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(14, 16);
@@ -407,7 +407,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Shabnam", 9F);
-            label6.Location = new Point(261, 12);
+            label6.Location = new Point(218, 12);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(15, 16);
@@ -451,45 +451,47 @@
             // cmbFilterType
             // 
             cmbFilterType.Cursor = Cursors.Hand;
+            cmbFilterType.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbFilterType.FormattingEnabled = true;
-            cmbFilterType.Location = new Point(450, 8);
+            cmbFilterType.Location = new Point(485, 10);
             cmbFilterType.Margin = new Padding(4, 3, 4, 3);
             cmbFilterType.Name = "cmbFilterType";
-            cmbFilterType.Size = new Size(93, 23);
+            cmbFilterType.Size = new Size(80, 21);
             cmbFilterType.TabIndex = 2;
             // 
             // cmbFilterCategory
             // 
             cmbFilterCategory.Cursor = Cursors.Hand;
+            cmbFilterCategory.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbFilterCategory.FormattingEnabled = true;
-            cmbFilterCategory.Location = new Point(309, 8);
+            cmbFilterCategory.Location = new Point(367, 10);
             cmbFilterCategory.Margin = new Padding(4, 3, 4, 3);
             cmbFilterCategory.Name = "cmbFilterCategory";
-            cmbFilterCategory.Size = new Size(135, 23);
+            cmbFilterCategory.Size = new Size(109, 21);
             cmbFilterCategory.TabIndex = 1;
             // 
             // dtpFrom
             // 
             dtpFrom.CalendarFont = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtpFrom.Cursor = Cursors.Hand;
-            dtpFrom.Font = new Font("Segoe UI", 8.25F);
+            dtpFrom.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtpFrom.Format = DateTimePickerFormat.Short;
-            dtpFrom.Location = new Point(149, 9);
+            dtpFrom.Location = new Point(126, 11);
             dtpFrom.Margin = new Padding(4, 3, 4, 3);
             dtpFrom.Name = "dtpFrom";
-            dtpFrom.Size = new Size(106, 22);
+            dtpFrom.Size = new Size(85, 19);
             dtpFrom.TabIndex = 0;
             // 
             // dtpTo
             // 
             dtpTo.CalendarFont = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtpTo.Cursor = Cursors.Hand;
-            dtpTo.Font = new Font("Segoe UI", 8.25F);
+            dtpTo.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtpTo.Format = DateTimePickerFormat.Short;
-            dtpTo.Location = new Point(13, 9);
+            dtpTo.Location = new Point(10, 11);
             dtpTo.Margin = new Padding(4, 3, 4, 3);
             dtpTo.Name = "dtpTo";
-            dtpTo.Size = new Size(106, 22);
+            dtpTo.Size = new Size(86, 19);
             dtpTo.TabIndex = 0;
             // 
             // pnlExpense
@@ -530,21 +532,13 @@
             pnlBalance.Size = new Size(240, 42);
             pnlBalance.TabIndex = 9;
             // 
-            // btnExport
+            // cmbFilterDepartment
             // 
-            btnExport.BackColor = Color.Cyan;
-            btnExport.FlatAppearance.BorderSize = 0;
-            btnExport.FlatStyle = FlatStyle.Flat;
-            btnExport.Font = new Font("Shabnam", 9.75F);
-            btnExport.ForeColor = Color.Black;
-            btnExport.Location = new Point(270, 10);
-            btnExport.Name = "btnExport";
-            btnExport.Size = new Size(86, 30);
-            btnExport.TabIndex = 11;
-            btnExport.TabStop = false;
-            btnExport.Text = "خروجی CSV";
-            btnExport.UseVisualStyleBackColor = false;
-            btnExport.Click += btnExport_Click;
+            cmbFilterDepartment.FormattingEnabled = true;
+            cmbFilterDepartment.Location = new Point(246, 9);
+            cmbFilterDepartment.Name = "cmbFilterDepartment";
+            cmbFilterDepartment.Size = new Size(109, 23);
+            cmbFilterDepartment.TabIndex = 5;
             // 
             // MainForm
             // 
@@ -598,7 +592,7 @@
         private Button btnLogout;
         private Panel panel1;
         private Label lblUsername;
-        private Label label4;
+        private Label lblUserRole;
         private Panel panel2;
         private Button btnEdit;
         private Label lblTodayDate;
@@ -616,8 +610,8 @@
         private Panel pnlIncome;
         private Panel pnlBalance;
         private Button bthCharts;
-        private Controls.PrimaryButton btnSettings;
-        private Controls.PrimaryButton primaryButton1;
         private Controls.PrimaryButton btnExport;
+        private Controls.PrimaryButton btnAdminPanel;
+        private ComboBox cmbFilterDepartment;
     }
 }

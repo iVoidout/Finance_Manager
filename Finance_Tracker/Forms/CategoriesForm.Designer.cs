@@ -1,6 +1,6 @@
 ﻿namespace Finance_Tracker.Forms
 {
-    partial class SettingsForm
+    partial class CategoriesForm
     {
         /// <summary>
         /// Required designer variable.
@@ -33,6 +33,8 @@
             btnAddCategory = new Finance_Tracker.Controls.PrimaryButton();
             btnDeleteCategory = new Finance_Tracker.Controls.SecondaryButton();
             btnClose = new Finance_Tracker.Controls.PrimaryButton();
+            rbCatIncome = new RadioButton();
+            rbCatExpense = new RadioButton();
             SuspendLayout();
             // 
             // lstCategories
@@ -46,7 +48,7 @@
             // 
             // txtNewCategory
             // 
-            txtNewCategory.Location = new Point(12, 171);
+            txtNewCategory.Location = new Point(10, 207);
             txtNewCategory.Name = "txtNewCategory";
             txtNewCategory.Size = new Size(180, 23);
             txtNewCategory.TabIndex = 1;
@@ -58,7 +60,7 @@
             btnAddCategory.FlatStyle = FlatStyle.Flat;
             btnAddCategory.Font = new Font("Shabnam", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnAddCategory.ForeColor = Color.Black;
-            btnAddCategory.Location = new Point(12, 200);
+            btnAddCategory.Location = new Point(10, 236);
             btnAddCategory.Name = "btnAddCategory";
             btnAddCategory.Size = new Size(75, 23);
             btnAddCategory.TabIndex = 3;
@@ -74,7 +76,7 @@
             btnDeleteCategory.FlatStyle = FlatStyle.Flat;
             btnDeleteCategory.Font = new Font("Shabnam", 9.75F);
             btnDeleteCategory.ForeColor = Color.Black;
-            btnDeleteCategory.Location = new Point(115, 200);
+            btnDeleteCategory.Location = new Point(115, 236);
             btnDeleteCategory.Name = "btnDeleteCategory";
             btnDeleteCategory.Size = new Size(75, 23);
             btnDeleteCategory.TabIndex = 4;
@@ -90,7 +92,7 @@
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Shabnam", 9.75F);
             btnClose.ForeColor = Color.Black;
-            btnClose.Location = new Point(62, 284);
+            btnClose.Location = new Point(64, 273);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(75, 23);
             btnClose.TabIndex = 5;
@@ -99,11 +101,37 @@
             btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnClose_Click;
             // 
-            // SettingsForm
+            // rbCatIncome
+            // 
+            rbCatIncome.AutoSize = true;
+            rbCatIncome.Location = new Point(36, 178);
+            rbCatIncome.Name = "rbCatIncome";
+            rbCatIncome.Size = new Size(51, 19);
+            rbCatIncome.TabIndex = 6;
+            rbCatIncome.TabStop = true;
+            rbCatIncome.Text = "درآمد";
+            rbCatIncome.UseVisualStyleBackColor = true;
+            rbCatIncome.CheckedChanged += rbCatIncome_CheckedChanged;
+            // 
+            // rbCatExpense
+            // 
+            rbCatExpense.AutoSize = true;
+            rbCatExpense.Location = new Point(117, 178);
+            rbCatExpense.Name = "rbCatExpense";
+            rbCatExpense.Size = new Size(53, 19);
+            rbCatExpense.TabIndex = 7;
+            rbCatExpense.TabStop = true;
+            rbCatExpense.Text = "هزینه";
+            rbCatExpense.UseVisualStyleBackColor = true;
+            rbCatExpense.CheckedChanged += rbCatExpense_CheckedChanged;
+            // 
+            // CategoriesForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(202, 338);
+            ClientSize = new Size(202, 311);
+            Controls.Add(rbCatExpense);
+            Controls.Add(rbCatIncome);
             Controls.Add(btnClose);
             Controls.Add(btnDeleteCategory);
             Controls.Add(btnAddCategory);
@@ -112,11 +140,11 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "SettingsForm";
+            Name = "CategoriesForm";
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "تنظیمات";
+            Text = "دسته بندی ها";
             Load += SettingsFrom_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -129,5 +157,7 @@
         private Controls.PrimaryButton btnAddCategory;
         private Controls.SecondaryButton btnDeleteCategory;
         private Controls.PrimaryButton btnClose;
+        private RadioButton rbCatIncome;
+        private RadioButton rbCatExpense;
     }
 }
