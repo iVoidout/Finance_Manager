@@ -53,6 +53,7 @@
             bthCharts = new Button();
             btnEdit = new Button();
             filterPanel = new Panel();
+            cmbFilterDepartment = new ComboBox();
             label7 = new Label();
             label6 = new Label();
             btnClearFilter = new Button();
@@ -64,7 +65,6 @@
             pnlExpense = new Panel();
             pnlIncome = new Panel();
             pnlBalance = new Panel();
-            cmbFilterDepartment = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -158,7 +158,7 @@
             btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.Font = new Font("Shabnam", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnAdd.ForeColor = Color.Black;
-            btnAdd.Location = new Point(659, 10);
+            btnAdd.Location = new Point(669, 10);
             btnAdd.Margin = new Padding(4, 3, 4, 3);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 30);
@@ -176,7 +176,7 @@
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnDelete.ForeColor = Color.Black;
-            btnDelete.Location = new Point(487, 10);
+            btnDelete.Location = new Point(503, 8);
             btnDelete.Margin = new Padding(4, 3, 4, 3);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 30);
@@ -227,7 +227,7 @@
             btnLogout.FlatStyle = FlatStyle.Flat;
             btnLogout.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogout.ForeColor = Color.Black;
-            btnLogout.Location = new Point(9, 7);
+            btnLogout.Location = new Point(5, 6);
             btnLogout.Margin = new Padding(4, 3, 4, 3);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(75, 26);
@@ -262,7 +262,7 @@
             btnAdminPanel.FlatStyle = FlatStyle.Flat;
             btnAdminPanel.Font = new Font("Shabnam", 9.75F);
             btnAdminPanel.ForeColor = Color.Black;
-            btnAdminPanel.Location = new Point(91, 6);
+            btnAdminPanel.Location = new Point(87, 6);
             btnAdminPanel.Name = "btnAdminPanel";
             btnAdminPanel.Size = new Size(75, 26);
             btnAdminPanel.TabIndex = 13;
@@ -334,7 +334,7 @@
             btnExport.FlatStyle = FlatStyle.Flat;
             btnExport.Font = new Font("Shabnam", 9.75F);
             btnExport.ForeColor = Color.Black;
-            btnExport.Location = new Point(12, 12);
+            btnExport.Location = new Point(5, 10);
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(86, 30);
             btnExport.TabIndex = 11;
@@ -348,7 +348,7 @@
             bthCharts.BackColor = Color.Cyan;
             bthCharts.FlatAppearance.BorderSize = 0;
             bthCharts.FlatStyle = FlatStyle.Flat;
-            bthCharts.Location = new Point(105, 12);
+            bthCharts.Location = new Point(98, 10);
             bthCharts.Margin = new Padding(4, 3, 4, 3);
             bthCharts.Name = "bthCharts";
             bthCharts.Size = new Size(75, 30);
@@ -365,7 +365,7 @@
             btnEdit.FlatStyle = FlatStyle.Flat;
             btnEdit.Font = new Font("Shabnam", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnEdit.ForeColor = Color.Black;
-            btnEdit.Location = new Point(570, 10);
+            btnEdit.Location = new Point(586, 10);
             btnEdit.Margin = new Padding(4, 3, 4, 3);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(75, 30);
@@ -391,6 +391,14 @@
             filterPanel.Name = "filterPanel";
             filterPanel.Size = new Size(750, 42);
             filterPanel.TabIndex = 6;
+            // 
+            // cmbFilterDepartment
+            // 
+            cmbFilterDepartment.FormattingEnabled = true;
+            cmbFilterDepartment.Location = new Point(246, 9);
+            cmbFilterDepartment.Name = "cmbFilterDepartment";
+            cmbFilterDepartment.Size = new Size(109, 23);
+            cmbFilterDepartment.TabIndex = 5;
             // 
             // label7
             // 
@@ -531,14 +539,6 @@
             pnlBalance.Name = "pnlBalance";
             pnlBalance.Size = new Size(240, 42);
             pnlBalance.TabIndex = 9;
-            // 
-            // cmbFilterDepartment
-            // 
-            cmbFilterDepartment.FormattingEnabled = true;
-            cmbFilterDepartment.Location = new Point(246, 9);
-            cmbFilterDepartment.Name = "cmbFilterDepartment";
-            cmbFilterDepartment.Size = new Size(109, 23);
-            cmbFilterDepartment.TabIndex = 5;
             // 
             // MainForm
             // 

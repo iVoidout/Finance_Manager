@@ -71,7 +71,7 @@ namespace Finance_Tracker.Forms
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            new RegisterForm(_db).ShowDialog();
+            
         }
 
         private bool _passwordVisible = false;

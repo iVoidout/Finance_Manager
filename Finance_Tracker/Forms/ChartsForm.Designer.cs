@@ -57,7 +57,7 @@
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "ChartsForm";
+            Text = "نمودار ها";
             Load += ChartsForm_Load;
             ((System.ComponentModel.ISupportInitialize)webView1).EndInit();
             ResumeLayout(false);

@@ -55,7 +55,7 @@
             dgvPending.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvPending.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPending.GridColor = Color.White;
-            dgvPending.Location = new Point(12, 21);
+            dgvPending.Location = new Point(12, 12);
             dgvPending.Name = "dgvPending";
             dgvPending.ReadOnly = true;
             dgvPending.RowHeadersVisible = false;
@@ -63,7 +63,7 @@
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dgvPending.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dgvPending.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPending.Size = new Size(535, 269);
+            dgvPending.Size = new Size(535, 278);
             dgvPending.TabIndex = 0;
             dgvPending.CellContentClick += dgvPending_CellContentClick;
             // 

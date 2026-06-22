@@ -32,6 +32,7 @@
             btnBudget = new Finance_Tracker.Controls.PrimaryButton();
             btnApproval = new Finance_Tracker.Controls.PrimaryButton();
             btnDepartments = new Finance_Tracker.Controls.PrimaryButton();
+            btnAddUser = new Finance_Tracker.Controls.PrimaryButton();
             SuspendLayout();
             // 
             // btnCategories
@@ -98,11 +99,28 @@
             btnDepartments.UseVisualStyleBackColor = false;
             btnDepartments.Click += btnDepartments_Click;
             // 
+            // btnAddUser
+            // 
+            btnAddUser.BackColor = Color.Cyan;
+            btnAddUser.FlatAppearance.BorderSize = 0;
+            btnAddUser.FlatStyle = FlatStyle.Flat;
+            btnAddUser.Font = new Font("Shabnam", 9.75F);
+            btnAddUser.ForeColor = Color.Black;
+            btnAddUser.Location = new Point(12, 188);
+            btnAddUser.Name = "btnAddUser";
+            btnAddUser.Size = new Size(228, 38);
+            btnAddUser.TabIndex = 4;
+            btnAddUser.TabStop = false;
+            btnAddUser.Text = "اضافه کردن کاربر";
+            btnAddUser.UseVisualStyleBackColor = false;
+            btnAddUser.Click += btnAddUser_Click;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(252, 194);
+            ClientSize = new Size(252, 239);
+            Controls.Add(btnAddUser);
             Controls.Add(btnDepartments);
             Controls.Add(btnApproval);
             Controls.Add(btnBudget);
@@ -113,6 +131,7 @@
             RightToLeftLayout = true;
             StartPosition = FormStartPosition.CenterParent;
             Text = "مدیریت";
+            Load += AdminForm_Load;
             ResumeLayout(false);
         }
 
@@ -122,5 +141,6 @@
         private Controls.PrimaryButton btnBudget;
         private Controls.PrimaryButton btnApproval;
         private Controls.PrimaryButton btnDepartments;
+        private Controls.PrimaryButton btnAddUser;
     }
 }

@@ -53,5 +53,15 @@ namespace Finance_Tracker.Forms
             var form = new DepartmentForm(_db);
             form.ShowDialog();
         }
+
+        private void AdminForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddUser_Click(object sender, EventArgs e)
+        {
+            new RegisterForm(_db).ShowDialog();
+        }
     }
 }

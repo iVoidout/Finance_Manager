@@ -33,7 +33,6 @@
             label2 = new Label();
             txtPassword = new TextBox();
             btnLogin = new Button();
-            btnRegister = new Button();
             chkRemember = new CheckBox();
             btnShowPass = new Button();
             SuspendLayout();
@@ -96,22 +95,6 @@
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
-            // btnRegister
-            // 
-            btnRegister.Cursor = Cursors.Hand;
-            btnRegister.FlatAppearance.BorderSize = 0;
-            btnRegister.FlatStyle = FlatStyle.Flat;
-            btnRegister.Font = new Font("Shabnam", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnRegister.ForeColor = Color.FromArgb(0, 192, 192);
-            btnRegister.Location = new Point(49, 231);
-            btnRegister.Margin = new Padding(4, 3, 4, 3);
-            btnRegister.Name = "btnRegister";
-            btnRegister.Size = new Size(169, 28);
-            btnRegister.TabIndex = 4;
-            btnRegister.Text = "ساخت حساب جدید";
-            btnRegister.UseVisualStyleBackColor = true;
-            btnRegister.Click += btnRegister_Click;
-            // 
             // chkRemember
             // 
             chkRemember.AutoSize = true;
@@ -138,10 +121,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(264, 279);
+            ClientSize = new Size(264, 254);
             Controls.Add(btnShowPass);
             Controls.Add(chkRemember);
-            Controls.Add(btnRegister);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
@@ -168,7 +150,6 @@
         private Label label2;
         private TextBox txtPassword;
         private Button btnLogin;
-        private Button btnRegister;
         private CheckBox chkRemember;
         private Button btnShowPass;
     }

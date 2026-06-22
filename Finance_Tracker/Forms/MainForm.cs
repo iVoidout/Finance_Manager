@@ -155,7 +155,6 @@ namespace Finance_Tracker.Forms
                 ApplyFilter();
             }
         }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count == 0)
@@ -223,8 +222,7 @@ namespace Finance_Tracker.Forms
             var approved = _transactions.Where(t => t.Status == "Approved").ToList();
             var filtered = approved.AsEnumerable();
 
-            filtered = filtered.Where(t => t.Date.Date >= dtpFrom.Value.Date
-                                        && t.Date.Date <= dtpTo.Value.Date);
+            filtered = filtered.Where(t => t.Date.Date >= dtpFrom.Value.Date && t.Date.Date <= dtpTo.Value.Date);
 
             if (cmbFilterCategory.SelectedIndex > 0)
                 filtered = filtered.Where(t => t.Category == cmbFilterCategory.SelectedItem.ToString());
