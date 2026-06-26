@@ -65,7 +65,7 @@ namespace Finance_Tracker.Forms
                 return;
             }
 
-            MessageBox.Show("اکانت شما ساخته شد! میتوانید وارد شوید");
+            MessageBox.Show("!اکانت ساخته شد");
             this.Close();
         }
     }

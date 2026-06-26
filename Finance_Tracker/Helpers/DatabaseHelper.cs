@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Finance_Tracker.Models;
 using Microsoft.Data.Sqlite;
-using Finance_Tracker.Models;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Security.Policy;
+using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 namespace Finance_Tracker.Helpers
 {
 
@@ -92,6 +95,10 @@ namespace Finance_Tracker.Helpers
                 foreach (var cat in incomeDefaults)
                     AddCategory(cat, "Income");
             }
+
+            //seed adming
+            var hash = PasswordHelper.Hash("1234");
+            RegisterUser("admin", hash, "Admin", 6);
 
 
         }
